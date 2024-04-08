@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {CommonModule} from "@angular/common";
 import {HousingLocationComponent} from "../housing-location/housing-location.component";
 import {HousingLocation} from "../housing-location";
+import {HousingService} from "../housing.service";
 
 @Component({
     selector: 'app-home',
@@ -11,16 +12,10 @@ import {HousingLocation} from "../housing-location";
     styleUrl: './home.component.css'
 })
 export class HomeComponent {
-    readonly baseUrl = 'https://angular.dev/assets/tutorials/common';
+    housingLocationList: Array<HousingLocation> = [];
 
-    housingLocation: HousingLocation = {
-        id: 9999,
-        name: 'Test Home',
-        city: 'Test City',
-        state: 'ST',
-        photo: `${this.baseUrl}/example-house.jpg`,
-        availableUnits: 99,
-        wifi: true,
-        laundry: false
-    };
+    constructor(private housingService: HousingService) {
+        this.housingLocationList = this.housingService.getAllHousingLocations();
+    }
+
 }
